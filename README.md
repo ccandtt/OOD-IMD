@@ -2,6 +2,7 @@
 
 This repository provides the implementation of Mamba-CLIP, which integrates the Mamba State Space Model (SSM) with CLIP for enhanced vision-language processing. The project focuses on medical image segmentation tasks, leveraging the efficiency of SSMs to capture long-range contextual dependencies with linear computational complexity.
 
+
 ## Abstract
 
 Mamba-CLIP combines the strengths of State Space Models with CLIP's vision-language capabilities for advanced image processing tasks. By utilizing the efficient Mamba architecture, this approach maintains linear computational complexity while effectively modeling long-range interactions, making it particularly suitable for medical image segmentation applications.
