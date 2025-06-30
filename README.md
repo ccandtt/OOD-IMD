@@ -31,33 +31,33 @@ The .whl files of causal_conv1d and mamba_ssm can be downloaded from [Baidu](htt
 - The ISIC17 and ISIC18 datasets, divided into a 7:3 ratio, can be found here [Baidu](https://pan.baidu.com/s/1Y0YupaH21yDN5uldl7IcZA?pwd=dybm) or [GoogleDrive](https://drive.google.com/file/d/1XM10fmAXndVLtXWOt5G0puYSQyI2veWy/view?usp=sharing).
 
 - After downloading the datasets, place them into './data/isic17/' and './data/isic18/', following this file structure:
-./data/isic17/
-├── train/
-│ ├── images/
-│ │ └── .png
-│ └── masks/
-│ └── .png
-└── val/
-├── images/
-│ └── .png
-└── masks/
-└── .png
+- ./data/isic17/
+  - train/
+    - images/
+      - .png
+    - masks/
+    - .png
+  - val/
+  - images/
+    - .png
+  - masks/
+  - .png
 
 ### Synapse datasets
 
 - Download the Synapse dataset from [Baidu](https://pan.baidu.com/s/1JCXBfRL9y1cjfJUKtbEhiQ?pwd=9jti) or follow the instructions from [Swin-UNet](https://github.com/HuCaoFighting/Swin-Unet).
 
 - After downloading, place the dataset into './data/Synapse/' with the following structure:
-./data/Synapse/
-├── lists/
-│ └── list_Synapse/
-│ ├── all.lst
-│ ├── test_vol.txt
-│ └── train.txt
-├── test_vol_h5/
-│ └── case.npy.h5
-└── train_npz/
-└── case_slice.npz
+- ./data/Synapse/
+  - lists/
+    - list_Synapse/
+    - all.lst
+    - test_vol.txt
+    - train.txt
+  - test_vol_h5/
+    - case.npy.h5
+  - train_npz/
+  - case_slice.npz
 
 ## 2. Prepare the pre-trained weights
 
