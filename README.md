@@ -1,17 +1,17 @@
-Mamba-CLIP
-Introduction
-Mamba-CLIP is a project that integrates the Mamba State Space Model (SSM) with CLIP for enhanced vision-language processing. This repository provides the necessary setup and configuration to utilize Mamba-CLIP for tasks such as image segmentation and related applications. Leveraging the efficiency of SSMs, Mamba-CLIP aims to capture long-range contextual dependencies with linear computational complexity, making it suitable for advanced vision tasks.
-Setup and Configuration
-1. Environment Setup
-To set up the environment for Mamba-CLIP, follow these steps to create a virtual environment and install the required dependencies.
-# Create a new conda environment with Python 3.8
+# Mamba-CLIP
+
+This repository provides the implementation of Mamba-CLIP, which integrates the Mamba State Space Model (SSM) with CLIP for enhanced vision-language processing. The project focuses on medical image segmentation tasks, leveraging the efficiency of SSMs to capture long-range contextual dependencies with linear computational complexity.
+
+## Abstract
+
+Mamba-CLIP combines the strengths of State Space Models with CLIP's vision-language capabilities for advanced image processing tasks. By utilizing the efficient Mamba architecture, this approach maintains linear computational complexity while effectively modeling long-range interactions, making it particularly suitable for medical image segmentation applications.
+
+## 0. Main Environments
+
+```bash
 conda create -n mamba_clip python=3.8
 conda activate mamba_clip
-
-# Install PyTorch and related packages
 pip install torch==1.13.0 torchvision==0.14.0 torchaudio==0.13.0 --extra-index-url https://download.pytorch.org/whl/cu117
-
-# Install additional dependencies
 pip install packaging
 pip install timm==0.4.12
 pip install pytest chardet yacs termcolor
@@ -20,88 +20,73 @@ pip install triton==2.0.0
 pip install causal_conv1d==1.0.0
 pip install mamba_ssm==1.0.1
 pip install scikit-learn matplotlib thop h5py SimpleITK scikit-image medpy yacs
+```
 
-Note: The .whl files for causal_conv1d and mamba_ssm can be downloaded from Baidu or Google Drive.
-2. Dataset Preparation
-ISIC Datasets
+The .whl files of causal_conv1d and mamba_ssm can be downloaded from [Baidu](https://pan.baidu.com/s/1Tibn8Xh4FMwj0ths8Ufazw?pwd=uu5k) or [GoogleDrive](https://drive.google.com/drive/folders/1tZGs1YFHiDrMa-MjYY8ZoEnCyy7m7Gaj?usp=sharing).
 
-Download the ISIC17 and ISIC18 datasets from Baidu or Google Drive.
-Place the datasets in the following directory structure:
+## 1. Prepare the dataset
+
+### ISIC datasets
+
+- The ISIC17 and ISIC18 datasets, divided into a 7:3 ratio, can be found here [Baidu](https://pan.baidu.com/s/1Y0YupaH21yDN5uldl7IcZA?pwd=dybm) or [GoogleDrive](https://drive.google.com/file/d/1XM10fmAXndVLtXWOt5G0puYSQyI2veWy/view?usp=sharing).
+
+- After downloading the datasets, place them into './data/isic17/' and './data/isic18/', following this file structure:
 ./data/isic17/
-train/
-images/
-.png
+├── train/
+│ ├── images/
+│ │ └── .png
+│ └── masks/
+│ └── .png
+└── val/
+├── images/
+│ └── .png
+└── masks/
+└── .png
 
+### Synapse datasets
 
-masks/
-.png
+- Download the Synapse dataset from [Baidu](https://pan.baidu.com/s/1JCXBfRL9y1cjfJUKtbEhiQ?pwd=9jti) or follow the instructions from [Swin-UNet](https://github.com/HuCaoFighting/Swin-Unet).
 
-
-
-
-val/
-images/
-.png
-
-
-masks/
-.png
-
-
-
-
-
-
-Similarly for ./data/isic18/.
-
-
-
-Synapse Dataset
-
-Download the Synapse dataset following the instructions from Swin-UNet or from Baidu.
-Organize the dataset in the following structure:
+- After downloading, place the dataset into './data/Synapse/' with the following structure:
 ./data/Synapse/
-lists/list_Synapse/
-all.lst
-test_vol.txt
-train.txt
+├── lists/
+│ └── list_Synapse/
+│ ├── all.lst
+│ ├── test_vol.txt
+│ └── train.txt
+├── test_vol_h5/
+│ └── case.npy.h5
+└── train_npz/
+└── case_slice.npz
 
+## 2. Prepare the pre-trained weights
 
-test_vol_h5/
-casexxxx.npy.h5
+- Download the pre-trained weights from [Baidu](https://pan.baidu.com/s/1ci_YvPPEiUT2bIIK5x8Igw?pwd=wnyy) or [GoogleDrive](https://drive.google.com/drive/folders/1tZGs1YFHiDrMa-MjYY8ZoEnCyy7m7Gaj?usp=sharing).
+- Store the pre-trained weights in './pretrained_weights/'.
 
+## 3. Train the Mamba-CLIP
 
-train_npz/
-casexxxx_slicexxx.npz
-
-
-
-
-
-
-
-3. Pre-trained Weights
-
-Download the pre-trained weights for Mamba-CLIP from Baidu or Google Drive.
-Store the weights in the ./pretrained_weights/ directory.
-
-4. Training
-To train the Mamba-CLIP model, navigate to the project directory and run the appropriate training script:
+```bash
 cd OOD-IMD
-python train.py  # Train and test on ISIC17 or ISIC18 datasets
+python train.py          # Train and test on ISIC17 or ISIC18 datasets
 python train_synapse.py  # Train and test on Synapse dataset
+```
 
-Inference Testing:To use a trained checkpoint for inference and save test images:
+### Inference Testing
 
-In the config_setting file:
-Set only_test_and_save_figs to True.
-Specify the path to the trained checkpoint in best_ckpt_path.
-Define the save path for test images in img_save_path.
+For testing with a trained checkpoint and saving test images:
 
+- **In `config_setting`**:
+  - Set `only_test_and_save_figs` to `True`
+  - Specify the trained checkpoint path in `best_ckpt_path`
+  - Define the save path for test images in `img_save_path`
 
-Run the train.py script.
+- **Execute**: Run `python train.py`
 
-5. Output Results
-After training, the results will be saved in the ./results/ directory.
-Acknowledgments
-This project builds upon open-source contributions from the VMamba and Swin-UNet repositories.
+## 4. Obtain the outputs
+
+After training, results will be saved in './results/'
+
+## 5. Acknowledgments
+
+We thank the authors of [VMamba](https://github.com/MzeroMiko/VMamba) and [Swin-UNet](https://github.com/HuCaoFighting/Swin-Unet) for their open-source contributions.
